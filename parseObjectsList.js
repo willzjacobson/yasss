@@ -21,46 +21,57 @@ function genericStart(text){
   return /^  {/.test(text);
 }
 
+// UNIT TESTED
 function genericEnd(text){
   return /^  }/.test(text);
 }
 
+// UNIT TESTED
 function isDate(text){
   return /^{ \(/.test(text);
 }
 
+// UNIT TESTED
 function isArray(text){
   return /{|}/.test(text);
 }
 
+// UNIT TESTED
 function isIdObject(text){
   return /\(|\)/.test(text);
 }
 
+// UNIT TESTED
 function isProtocolSupported(text) {
   return /protocol-(.+)-supported/.test(text);
 }
 
+// UNIT TESTED
 function isProtocolEnded(text) {
   return /^        \)/.test(text);
 }
 
+// UNIT TESTED
 function isDeviceList(text) {
   return text.indexOf('object-list') > -1;
 }
 
+// UNIT TESTED
 function isDeviceListEnded(text) {
   return /}/.test(text);
 }
 
+// UNIT TESTED
 function isDeviceAddressBinding(text) {
   return /^\{ (.+) \}$/.test(text);
 }
 
+// UNIT TESTED
 function isTimeOf(text) {
   return /^time-of-(.+)-reset/.test(text);
 }
 
+// UNIT TESTED
 //parse individual
 function parseToPrimitive(text){
   const formattedText = text.toLowerCase();
@@ -74,6 +85,7 @@ function parseToPrimitive(text){
   else return text;
 }
 
+// UNIT TESTED
 function parseToDate(text) {
   const elements = text.match(/\((.+), .\),(.+)\./);
   if(!elements) return text;
@@ -83,12 +95,14 @@ function parseToDate(text) {
   return momentObject.toDate();
 }
 
+// UNIT TESTED
 function parseToArray(text, parseFuncs){
   const formattedText = text.replace(/{|}/g, '');
   return formattedText.split(',')
     .map(text => parseFuncs.parseToPrimitive(text.trim()));
 }
 
+// UNIT TESTED
 function parseToIdObject(text){
   const elements = text.match(/\((.+), (.+)\)/);
   const error = text.match(/(BACnet Error:.+)/);
@@ -99,6 +113,7 @@ function parseToIdObject(text){
   return { id, type };
 }
 
+// UNIT TESTED
 function parseTimeOf(text, parseFuncs){
     const elements = text.match(/\((.+),(.+)\)/);
     const string = elements[1];
@@ -106,11 +121,13 @@ function parseTimeOf(text, parseFuncs){
     return [ string , number ];
 }
 
+// UNIT TESTED
 function parseSupported(textArr, parseFuncs) {
   return textArr.map(line => parseFuncs.parseSupportedLine(line))
     .reduce((aggregate, objArr) => aggregate.concat(objArr), []);
 }
 
+// UNIT TESTED
 function parseDeviceList(textArr, parseFuncs) {
   return textArr.map(line => {
     const elements = line.match(/(\([^\)]+\))/g);
@@ -119,6 +136,7 @@ function parseDeviceList(textArr, parseFuncs) {
   .reduce((aggregate, objectArr) => aggregate.concat(objectArr), []);
 }
 
+// UNIT TESTED
 //directs to the correct parsers
 function parseValue(text, parseFuncs){
   if(text.indexOf('"') > -1) return text.replace(/"/g, '');
@@ -128,6 +146,7 @@ function parseValue(text, parseFuncs){
   else return parseFuncs.parseToPrimitive(text);
 }
 
+// UNIT TESTED
 function parseDeviceValue(key, value, parseFuncs){
   if(isProtocolSupported(key)) return parseFuncs.parseSupported(value, parseFuncs);
   else if(isDeviceList(key)) return parseFuncs.parseDeviceList(value, parseFuncs);
@@ -136,6 +155,7 @@ function parseDeviceValue(key, value, parseFuncs){
   else return parseFuncs.parseValue(value, parseFuncs);
 }
 
+// UNIT TESTED
 function parseController(textArr, parseFuncs) {
 	return textArr.reduce((accum, line, i) => {
 		const keyVal = line.match(/(\S+): (.+)/);
@@ -151,6 +171,7 @@ function parseController(textArr, parseFuncs) {
 	}, {});
 }
 
+// UNIT TESTED
 function sectionify(textArr){
     let sections = [];
     let temp = [];
@@ -179,6 +200,7 @@ function sectionify(textArr){
     };
 }
 
+// UNIT TESTED
 function parseDeviceAddressBinding(text, parseFuncs){
   const search = text.match(/(\([^\)]+\),[\d]+,[^,]+)/g);
   if(!search) return;
@@ -197,6 +219,7 @@ function parseDeviceAddressBinding(text, parseFuncs){
   });
 }
 
+// UNIT TESTED
 function parseSupportedLine(text){
   const search = text.match(/        (.+)   --(.+),$/);
   if (!search) return [];
@@ -217,6 +240,7 @@ function parseSupportedLine(text){
 }
 
 
+// NOT UNIT TESTABLE
 //parse chunks
 function parseDevice(textArr) {
 
@@ -285,8 +309,9 @@ function parseObjectsList(textArr) {
 		console.log('Error parsing controllers:', '\n', e.stack);
 		throw e;
 	}
+  require('fs').writeFile('./parsedControllers.js', JSON.stringify(sections[KEYS.CONTROLLERS]));
 
-	// console.log('contr', sections[KEYS.DEVICE]);
+	return sections;
 }
 
 

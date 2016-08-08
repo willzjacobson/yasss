@@ -69,7 +69,7 @@ const sections = [
   }
 ];
 
-
+// UNIT TESTED
 // loop through the array of the lines of the epics string
 // and aggragate each sect into a key:value pair in a single object
 function divideToSections(textArr){
@@ -132,7 +132,7 @@ module.exports = {
 	parseEpics
 };
 
-var raw = require('fs').readFileSync('./dev_345Park/4138819.txt', 'utf8');
+var raw = require('fs').readFileSync('./raw.txt', 'utf8');
 parseEpics(raw);
 
 

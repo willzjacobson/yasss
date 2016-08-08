@@ -1,5 +1,4 @@
-{
-  "device": "4138819",
+module.exports = {
   "vendor": {
     "Vendor Name": "TAC",
     "Product Name": "bCX1-CR",
@@ -83,18 +82,18 @@
     "ARCNET, twisted pair bus",
     "ARCNET, fiber star",
     "ARCNET, twisted pair, EIA-485, Baud rate(s): 156000",
-    "MS/TP master. Baud rate(s): 9600, 38400",
-    "MS/TP slave. Baud rate(s): 9600, 38400",
+    "MS\/TP master. Baud rate(s): 9600, 38400",
+    "MS\/TP slave. Baud rate(s): 9600, 38400",
     "Point-To-Point. EIA 232, Baud rate(s): 9600",
     "Point-To-Point. Modem, Baud rate(s): 9600",
     "Point-To-Point. Modem, Baud rate(s): 9600 to 115200",
-    "BACnet/IP, 'DIX' Ethernet",
-    "BACnet/IP, Other",
+    "BACnet\/IP, 'DIX' Ethernet",
+    "BACnet\/IP, Other",
     "Other"
   ],
   "character-sets-supported": [
     "ANSI X3.4",
-    "IBM/Microsoft DBCS",
+    "IBM\/Microsoft DBCS",
     "JIS C 6226",
     "ISO 8859-1",
     "ISO 10646 (UCS-4)",
@@ -2429,6 +2428,254 @@
         },
         {
           "controller": {
+            "id": "4030322",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "25"
+        },
+        {
+          "controller": {
+            "id": "4006295",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "32"
+        },
+        {
+          "controller": {
+            "id": "4009369",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "20"
+        },
+        {
+          "controller": {
+            "id": "4006341",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "16"
+        },
+        {
+          "controller": {
+            "id": "4030320",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "0E"
+        },
+        {
+          "controller": {
+            "id": "3990651",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "25"
+        },
+        {
+          "controller": {
+            "id": "4010092",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "11"
+        },
+        {
+          "controller": {
+            "id": "4010123",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "0A"
+        },
+        {
+          "controller": {
+            "id": "4009358",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "21"
+        },
+        {
+          "controller": {
+            "id": "4010151",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "19"
+        },
+        {
+          "controller": {
+            "id": "4010150",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "1A"
+        },
+        {
+          "controller": {
+            "id": "4010090",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "1B"
+        },
+        {
+          "controller": {
+            "id": "3990656",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "23"
+        },
+        {
+          "controller": {
+            "id": "4009413",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "1D"
+        },
+        {
+          "controller": {
+            "id": "3989365",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "18"
+        },
+        {
+          "controller": {
+            "id": "4009370",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "1F"
+        },
+        {
+          "controller": {
+            "id": "4009408",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "1E"
+        },
+        {
+          "controller": {
+            "id": "4009416",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "1C"
+        },
+        {
+          "controller": {
+            "id": "4010149",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "12"
+        },
+        {
+          "controller": {
+            "id": "4009366",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "13"
+        },
+        {
+          "controller": {
+            "id": "3990281",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "17"
+        },
+        {
+          "controller": {
+            "id": "4010152",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "11"
+        },
+        {
+          "controller": {
+            "id": "4009354",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "1C"
+        },
+        {
+          "controller": {
+            "id": "4019675",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "10"
+        },
+        {
+          "controller": {
+            "id": "4009357",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "1B"
+        },
+        {
+          "controller": {
+            "id": "4019681",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "0F"
+        },
+        {
+          "controller": {
+            "id": "4019633",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "10"
+        },
+        {
+          "controller": {
+            "id": "3975916",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "24"
+        },
+        {
+          "controller": {
+            "id": "3992685",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "12"
+        },
+        {
+          "controller": {
+            "id": "3976013",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "09"
+        },
+        {
+          "controller": {
+            "id": "3976000",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "0E"
+        },
+        {
+          "controller": {
             "id": "3689119",
             "type": "device"
           },
@@ -2450,6 +2697,270 @@
           },
           "value": 1,
           "address": "C0A802C5BAC0"
+        },
+        {
+          "controller": {
+            "id": "3992702",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "0F"
+        },
+        {
+          "controller": {
+            "id": "4006716",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "22"
+        },
+        {
+          "controller": {
+            "id": "4006348",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "22"
+        },
+        {
+          "controller": {
+            "id": "3472323",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "10"
+        },
+        {
+          "controller": {
+            "id": "4006498",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "15"
+        },
+        {
+          "controller": {
+            "id": "4006920",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "07"
+        },
+        {
+          "controller": {
+            "id": "4042875",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "19"
+        },
+        {
+          "controller": {
+            "id": "4006924",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "14"
+        },
+        {
+          "controller": {
+            "id": "4006497",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "08"
+        },
+        {
+          "controller": {
+            "id": "4011955",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "1F"
+        },
+        {
+          "controller": {
+            "id": "4012459",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "31"
+        },
+        {
+          "controller": {
+            "id": "4020858",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "30"
+        },
+        {
+          "controller": {
+            "id": "4020882",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "1E"
+        },
+        {
+          "controller": {
+            "id": "4021008",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "1D"
+        },
+        {
+          "controller": {
+            "id": "4010856",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "20"
+        },
+        {
+          "controller": {
+            "id": "4043079",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "0C"
+        },
+        {
+          "controller": {
+            "id": "4042333",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "06"
+        },
+        {
+          "controller": {
+            "id": "4040664",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "28"
+        },
+        {
+          "controller": {
+            "id": "4042326",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "0E"
+        },
+        {
+          "controller": {
+            "id": "4042338",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "06"
+        },
+        {
+          "controller": {
+            "id": "4042335",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "05"
+        },
+        {
+          "controller": {
+            "id": "4043082",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "0B"
+        },
+        {
+          "controller": {
+            "id": "4007179",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "06"
+        },
+        {
+          "controller": {
+            "id": "4007584",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "21"
+        },
+        {
+          "controller": {
+            "id": "4007197",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "22"
+        },
+        {
+          "controller": {
+            "id": "4007559",
+            "type": "device"
+          },
+          "value": 2766,
+          "address": "05"
+        },
+        {
+          "controller": {
+            "id": "4007181",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "0D"
+        },
+        {
+          "controller": {
+            "id": "4042732",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "04"
+        },
+        {
+          "controller": {
+            "id": "4042330",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "07"
+        },
+        {
+          "controller": {
+            "id": "4042339",
+            "type": "device"
+          },
+          "value": 2765,
+          "address": "05"
+        },
+        {
+          "controller": {
+            "id": "4043083",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "01"
+        },
+        {
+          "controller": {
+            "id": "3452002",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "25"
+        },
+        {
+          "controller": {
+            "id": "3976014",
+            "type": "device"
+          },
+          "value": 2767,
+          "address": "24"
         }
       ],
       "database-revision": 602
@@ -2466,7 +2977,7 @@
         "object-name": "CH1ReturnTemp",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 53.986412,
+        "present-value": 54.252281,
         "priority-array": [
           null,
           null,
@@ -2477,7 +2988,7 @@
           null,
           null,
           null,
-          53.986412,
+          54.252281,
           null,
           null,
           null,
@@ -2505,7 +3016,7 @@
         "object-name": "CH1SupplyTemp",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 41.808155,
+        "present-value": 42.143677,
         "priority-array": [
           null,
           null,
@@ -2516,7 +3027,7 @@
           null,
           null,
           null,
-          41.808155,
+          42.143677,
           null,
           null,
           null,
@@ -2544,7 +3055,7 @@
         "object-name": "CH2ReturnTemp",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 55.939896,
+        "present-value": 55.802589,
         "priority-array": [
           null,
           null,
@@ -2555,7 +3066,7 @@
           null,
           null,
           null,
-          55.939896,
+          55.802589,
           null,
           null,
           null,
@@ -2583,7 +3094,7 @@
         "object-name": "CH2SupplyTemp",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 53.923725,
+        "present-value": 53.700169,
         "priority-array": [
           null,
           null,
@@ -2594,7 +3105,7 @@
           null,
           null,
           null,
-          53.923725,
+          53.700169,
           null,
           null,
           null,
@@ -2661,7 +3172,7 @@
         "object-name": "CHWDiffPress34",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 24.989567,
+        "present-value": 25.789186,
         "priority-array": [
           null,
           null,
@@ -2672,7 +3183,7 @@
           null,
           null,
           null,
-          24.989567,
+          25.789186,
           null,
           null,
           null,
@@ -2700,7 +3211,7 @@
         "object-name": "CHWDiffPress9",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 24.890375,
+        "present-value": 25.484875,
         "priority-array": [
           null,
           null,
@@ -2711,7 +3222,7 @@
           null,
           null,
           null,
-          24.890375,
+          25.484875,
           null,
           null,
           null,
@@ -2778,7 +3289,7 @@
         "object-name": "CHWDiffPressRoof",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 12.988042,
+        "present-value": 13.11805,
         "priority-array": [
           null,
           null,
@@ -2789,7 +3300,7 @@
           null,
           null,
           null,
-          12.988042,
+          13.11805,
           null,
           null,
           null,
@@ -2973,7 +3484,7 @@
         "object-name": "CWSupplyTempTCT2",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 77.088234,
+        "present-value": 76.970589,
         "priority-array": [
           null,
           null,
@@ -2984,7 +3495,7 @@
           null,
           null,
           null,
-          77.088234,
+          76.970589,
           null,
           null,
           null,
@@ -3558,7 +4069,7 @@
         "object-name": "OA_Co2West",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 498.244965,
+        "present-value": 488.224945,
         "priority-array": [
           null,
           null,
@@ -3569,7 +4080,7 @@
           null,
           null,
           null,
-          498.244965,
+          488.224945,
           null,
           null,
           null,
@@ -3597,7 +4108,7 @@
         "object-name": "RCHTempEastS1",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 54.950001,
+        "present-value": 55.299999,
         "priority-array": [
           null,
           null,
@@ -3608,7 +4119,7 @@
           null,
           null,
           null,
-          54.950001,
+          55.299999,
           null,
           null,
           null,
@@ -3636,7 +4147,7 @@
         "object-name": "RCHTempEastS7",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 57.029999,
+        "present-value": 56.689999,
         "priority-array": [
           null,
           null,
@@ -3647,7 +4158,7 @@
           null,
           null,
           null,
-          57.029999,
+          56.689999,
           null,
           null,
           null,
@@ -3675,7 +4186,7 @@
         "object-name": "RCHTempNorthS8",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 70.599998,
+        "present-value": 70.43,
         "priority-array": [
           null,
           null,
@@ -3686,7 +4197,7 @@
           null,
           null,
           null,
-          70.599998,
+          70.43,
           null,
           null,
           null,
@@ -3714,7 +4225,7 @@
         "object-name": "RCHTempNorthS2",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 70.080002,
+        "present-value": 69.739998,
         "priority-array": [
           null,
           null,
@@ -3725,7 +4236,7 @@
           null,
           null,
           null,
-          70.080002,
+          69.739998,
           null,
           null,
           null,
@@ -3753,7 +4264,7 @@
         "object-name": "RCHTempSouthS1",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 54.950001,
+        "present-value": 55.299999,
         "priority-array": [
           null,
           null,
@@ -3764,7 +4275,7 @@
           null,
           null,
           null,
-          54.950001,
+          55.299999,
           null,
           null,
           null,
@@ -3831,7 +4342,7 @@
         "object-name": "RCHTempWestS8",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 64.599998,
+        "present-value": 65.279999,
         "priority-array": [
           null,
           null,
@@ -3842,7 +4353,7 @@
           null,
           null,
           null,
-          64.599998,
+          65.279999,
           null,
           null,
           null,
@@ -3870,7 +4381,7 @@
         "object-name": "RCHTempWestS2",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 69.739998,
+        "present-value": 70.080002,
         "priority-array": [
           null,
           null,
@@ -3881,7 +4392,7 @@
           null,
           null,
           null,
-          69.739998,
+          70.080002,
           null,
           null,
           null,
@@ -3948,7 +4459,7 @@
         "object-name": "ReturnCO2.F10",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 541.139954,
+        "present-value": 552.429993,
         "priority-array": [
           null,
           null,
@@ -3959,7 +4470,7 @@
           null,
           null,
           null,
-          541.139954,
+          552.429993,
           null,
           null,
           null,
@@ -4026,7 +4537,7 @@
         "object-name": "ReturnCO2.F12",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 596.125,
+        "present-value": 607.36499,
         "priority-array": [
           null,
           null,
@@ -4037,7 +4548,7 @@
           null,
           null,
           null,
-          596.125,
+          607.36499,
           null,
           null,
           null,
@@ -8745,7 +9256,7 @@
         "object-name": "SupplyTemp.S10",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 59.544117,
+        "present-value": 59.264706,
         "priority-array": [
           null,
           null,
@@ -8756,7 +9267,7 @@
           null,
           null,
           null,
-          59.544117,
+          59.264706,
           null,
           null,
           null,
@@ -8901,7 +9412,7 @@
         "object-name": "SupplyTemp.S1",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 54.441177,
+        "present-value": 55.220589,
         "priority-array": [
           null,
           null,
@@ -8912,7 +9423,7 @@
           null,
           null,
           null,
-          54.441177,
+          55.220589,
           null,
           null,
           null,
@@ -9096,7 +9607,7 @@
         "object-name": "SupplyTemp.S11",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 57.691177,
+        "present-value": 57.455883,
         "priority-array": [
           null,
           null,
@@ -9107,7 +9618,7 @@
           null,
           null,
           null,
-          57.691177,
+          57.455883,
           null,
           null,
           null,
@@ -9135,7 +9646,7 @@
         "object-name": "SupplyTemp.S12",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 59.867645,
+        "present-value": 59.676472,
         "priority-array": [
           null,
           null,
@@ -9146,7 +9657,7 @@
           null,
           null,
           null,
-          59.867645,
+          59.676472,
           null,
           null,
           null,
@@ -9213,7 +9724,7 @@
         "object-name": "SupplyTemp.S19",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 61.117645,
+        "present-value": 60.882355,
         "priority-array": [
           null,
           null,
@@ -9224,7 +9735,7 @@
           null,
           null,
           null,
-          61.117645,
+          60.882355,
           null,
           null,
           null,
@@ -9369,7 +9880,7 @@
         "object-name": "SupplyTemp.S15",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 61.308823,
+        "present-value": 62.044117,
         "priority-array": [
           null,
           null,
@@ -9380,7 +9891,7 @@
           null,
           null,
           null,
-          61.308823,
+          62.044117,
           null,
           null,
           null,
@@ -9486,7 +9997,7 @@
         "object-name": "SupplyTemp.S21",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 61.676472,
+        "present-value": 65.808823,
         "priority-array": [
           null,
           null,
@@ -9497,7 +10008,7 @@
           null,
           null,
           null,
-          61.676472,
+          65.808823,
           null,
           null,
           null,
@@ -9525,7 +10036,7 @@
         "object-name": "SupplyTemp.S20",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 62.323528,
+        "present-value": 63.426472,
         "priority-array": [
           null,
           null,
@@ -9536,7 +10047,7 @@
           null,
           null,
           null,
-          62.323528,
+          63.426472,
           null,
           null,
           null,
@@ -9564,7 +10075,7 @@
         "object-name": "SupplyTemp.S22",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 64.132355,
+        "present-value": 63.882355,
         "priority-array": [
           null,
           null,
@@ -9575,7 +10086,7 @@
           null,
           null,
           null,
-          64.132355,
+          63.882355,
           null,
           null,
           null,
@@ -9876,7 +10387,7 @@
         "object-name": "CoolingValve.S1",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.608622,
+        "present-value": 0.604358,
         "priority-array": [
           null,
           null,
@@ -9887,7 +10398,7 @@
           null,
           null,
           null,
-          0.608622,
+          0.604358,
           null,
           null,
           null,
@@ -9915,7 +10426,7 @@
         "object-name": "CoolingValve.S10",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.465098,
+        "present-value": 0.452977,
         "priority-array": [
           null,
           null,
@@ -9926,7 +10437,7 @@
           null,
           null,
           null,
-          0.465098,
+          0.452977,
           null,
           null,
           null,
@@ -9954,7 +10465,7 @@
         "object-name": "CoolingValve.S11",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.476535,
+        "present-value": 0.476976,
         "priority-array": [
           null,
           null,
@@ -9965,7 +10476,7 @@
           null,
           null,
           null,
-          0.476535,
+          0.476976,
           null,
           null,
           null,
@@ -10734,7 +11245,7 @@
         "object-name": "PumpSpeed.P33",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.894783,
+        "present-value": 0.857658,
         "priority-array": [
           null,
           null,
@@ -10745,7 +11256,7 @@
           null,
           null,
           null,
-          0.894783,
+          0.857658,
           null,
           null,
           null,
@@ -10773,7 +11284,7 @@
         "object-name": "PumpSpeed.P34",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.894783,
+        "present-value": 0.857658,
         "priority-array": [
           null,
           null,
@@ -10784,7 +11295,7 @@
           null,
           null,
           null,
-          0.894783,
+          0.857658,
           null,
           null,
           null,
@@ -11826,7 +12337,7 @@
         "object-name": "Speed.CT1",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.853181,
+        "present-value": 0.865861,
         "priority-array": [
           null,
           null,
@@ -11837,7 +12348,7 @@
           null,
           null,
           null,
-          0.853181,
+          0.865861,
           null,
           null,
           null,
@@ -11943,7 +12454,7 @@
         "object-name": "Speed.CT2",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.854382,
+        "present-value": 0.868494,
         "priority-array": [
           null,
           null,
@@ -11954,7 +12465,7 @@
           null,
           null,
           null,
-          0.854382,
+          0.868494,
           null,
           null,
           null,
@@ -11982,7 +12493,7 @@
         "object-name": "Speed.CT2.1",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.25,
+        "present-value": 0,
         "priority-array": [
           null,
           null,
@@ -11993,7 +12504,7 @@
           null,
           null,
           null,
-          0.25,
+          0,
           null,
           null,
           null,
@@ -12021,7 +12532,7 @@
         "object-name": "Speed.CT2.2",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.25,
+        "present-value": 0,
         "priority-array": [
           null,
           null,
@@ -12032,7 +12543,7 @@
           null,
           null,
           null,
-          0.25,
+          0,
           null,
           null,
           null,
@@ -12060,7 +12571,7 @@
         "object-name": "Speed.CT3",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.853181,
+        "present-value": 0.872535,
         "priority-array": [
           null,
           null,
@@ -12071,7 +12582,7 @@
           null,
           null,
           null,
-          0.853181,
+          0.872535,
           null,
           null,
           null,
@@ -12099,7 +12610,7 @@
         "object-name": "Speed.CT4",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 0.853181,
+        "present-value": 0.865861,
         "priority-array": [
           null,
           null,
@@ -12110,7 +12621,7 @@
           null,
           null,
           null,
-          0.853181,
+          0.865861,
           null,
           null,
           null,
@@ -12957,7 +13468,7 @@
         "object-name": "ElecM1.Demand",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 1196,
+        "present-value": 1200,
         "priority-array": [
           null,
           null,
@@ -12968,7 +13479,7 @@
           null,
           null,
           null,
-          1196,
+          1200,
           null,
           null,
           null,
@@ -12996,7 +13507,7 @@
         "object-name": "ElecM2.Demand",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 1140,
+        "present-value": 1132,
         "priority-array": [
           null,
           null,
@@ -13007,7 +13518,7 @@
           null,
           null,
           null,
-          1140,
+          1132,
           null,
           null,
           null,
@@ -13035,7 +13546,7 @@
         "object-name": "ElecM3.Demand",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 988,
+        "present-value": 972,
         "priority-array": [
           null,
           null,
@@ -13046,7 +13557,7 @@
           null,
           null,
           null,
-          988,
+          972,
           null,
           null,
           null,
@@ -13074,7 +13585,7 @@
         "object-name": "ElecM4.Demand",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 1444,
+        "present-value": 1456,
         "priority-array": [
           null,
           null,
@@ -13085,7 +13596,7 @@
           null,
           null,
           null,
-          1444,
+          1456,
           null,
           null,
           null,
@@ -13152,7 +13663,7 @@
         "object-name": "ElecM6.Demand",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 548,
+        "present-value": 552,
         "priority-array": [
           null,
           null,
@@ -13163,7 +13674,7 @@
           null,
           null,
           null,
-          548,
+          552,
           null,
           null,
           null,
@@ -13230,7 +13741,7 @@
         "object-name": "FanFdbck.F11",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 54.970001,
+        "present-value": 54.98,
         "priority-array": [
           null,
           null,
@@ -13241,7 +13752,7 @@
           null,
           null,
           null,
-          54.970001,
+          54.98,
           null,
           null,
           null,
@@ -13269,7 +13780,7 @@
         "object-name": "FanFdbck.F12",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 55.279999,
+        "present-value": 55.27,
         "priority-array": [
           null,
           null,
@@ -13280,7 +13791,7 @@
           null,
           null,
           null,
-          55.279999,
+          55.27,
           null,
           null,
           null,
@@ -13308,7 +13819,7 @@
         "object-name": "FanFdbck.F17",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 58.59,
+        "present-value": 58.630001,
         "priority-array": [
           null,
           null,
@@ -13319,7 +13830,7 @@
           null,
           null,
           null,
-          58.59,
+          58.630001,
           null,
           null,
           null,
@@ -13386,7 +13897,7 @@
         "object-name": "FanFdbck.F19",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 57.580002,
+        "present-value": 57.560001,
         "priority-array": [
           null,
           null,
@@ -13397,7 +13908,7 @@
           null,
           null,
           null,
-          57.580002,
+          57.560001,
           null,
           null,
           null,
@@ -13542,7 +14053,7 @@
         "object-name": "FanFdbck.F22",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 55.52,
+        "present-value": 55.57,
         "priority-array": [
           null,
           null,
@@ -13553,7 +14064,7 @@
           null,
           null,
           null,
-          55.52,
+          55.57,
           null,
           null,
           null,
@@ -13659,7 +14170,7 @@
         "object-name": "FanFdbck.F26",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 50.650002,
+        "present-value": 50.52,
         "priority-array": [
           null,
           null,
@@ -13670,7 +14181,7 @@
           null,
           null,
           null,
-          50.650002,
+          50.52,
           null,
           null,
           null,
@@ -14049,7 +14560,7 @@
         "object-name": "OA_CO2_Avg",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 552.859985,
+        "present-value": 537.779968,
         "priority-array": [
           null,
           null,
@@ -14060,7 +14571,7 @@
           null,
           null,
           null,
-          552.859985,
+          537.779968,
           null,
           null,
           null,
@@ -14634,7 +15145,7 @@
         "object-name": "FanFdbck.S16",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 54.439999,
+        "present-value": 54.43,
         "priority-array": [
           null,
           null,
@@ -14645,7 +15156,7 @@
           null,
           null,
           null,
-          54.439999,
+          54.43,
           null,
           null,
           null,
@@ -14673,7 +15184,7 @@
         "object-name": "FanFdbck.S17",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 59.23,
+        "present-value": 59.259998,
         "priority-array": [
           null,
           null,
@@ -14684,7 +15195,7 @@
           null,
           null,
           null,
-          59.23,
+          59.259998,
           null,
           null,
           null,
@@ -14751,7 +15262,7 @@
         "object-name": "FanFdbck.S19",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 55.32,
+        "present-value": 55.369999,
         "priority-array": [
           null,
           null,
@@ -14762,7 +15273,7 @@
           null,
           null,
           null,
-          55.32,
+          55.369999,
           null,
           null,
           null,
@@ -14790,7 +15301,7 @@
         "object-name": "FanFdbck.S1",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 42.759998,
+        "present-value": 42.830002,
         "priority-array": [
           null,
           null,
@@ -14801,7 +15312,7 @@
           null,
           null,
           null,
-          42.759998,
+          42.830002,
           null,
           null,
           null,
@@ -14868,7 +15379,7 @@
         "object-name": "FanFdbckS22",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 52.630001,
+        "present-value": 52.610001,
         "priority-array": [
           null,
           null,
@@ -14879,7 +15390,7 @@
           null,
           null,
           null,
-          52.630001,
+          52.610001,
           null,
           null,
           null,
@@ -14907,7 +15418,7 @@
         "object-name": "FanFdbck.S2",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 50.529999,
+        "present-value": 50.560001,
         "priority-array": [
           null,
           null,
@@ -14918,7 +15429,7 @@
           null,
           null,
           null,
-          50.529999,
+          50.560001,
           null,
           null,
           null,
@@ -15102,7 +15613,7 @@
         "object-name": "FanFdbck.S7",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 45.869999,
+        "present-value": 45.880001,
         "priority-array": [
           null,
           null,
@@ -15113,7 +15624,7 @@
           null,
           null,
           null,
-          45.869999,
+          45.880001,
           null,
           null,
           null,
@@ -15297,7 +15808,7 @@
         "object-name": "Steam.Momentary",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 45.599991,
+        "present-value": 45.599995,
         "priority-array": [
           null,
           null,
@@ -15308,7 +15819,7 @@
           null,
           null,
           null,
-          45.599991,
+          45.599995,
           null,
           null,
           null,
@@ -15414,7 +15925,7 @@
         "object-name": "StmMed.Momentary",
         "object-type": "analog-value",
         "out-of-service": false,
-        "present-value": 28.799995,
+        "present-value": 29.399998,
         "priority-array": [
           null,
           null,
@@ -15425,7 +15936,7 @@
           null,
           null,
           null,
-          28.799995,
+          29.399998,
           null,
           null,
           null,
@@ -21102,7 +21613,7 @@
         "file-access-method": 1,
         "file-size": 107762,
         "file-type": "Configuration",
-        "modification-date": "2016-02-19T17:25:00.000Z",
+        "modification-date": "2016-02-19T22:25:00.000Z",
         "object-identifier": {
           "id": "1",
           "type": "file"
@@ -21275,4 +21786,5 @@
       }
     ]
   }
-}
+};
+

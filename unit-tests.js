@@ -5,7 +5,7 @@ const expect = chai.expect;
 const should = chai.should;
 const fs = require('fs');
 
-const rawText = fs.readFileSync('./dev_345Park/4138819.txt', 'utf8');
+const rawText = fs.readFileSync('./raw.txt', 'utf8');
 const parsedSections = require('./section-parsing-test');
 const sectionMapKey = require('./sectionMap');
 
@@ -41,6 +41,7 @@ const parseDeviceList = require('./parseObjectsList').parseDeviceList;
 const parseDeviceAddressBinding = require('./parseObjectsList').parseDeviceAddressBinding;
 const parseController = require('./parseObjectsList').parseController;
 const parseDevice = require('./parseObjectsList').parseDevice;
+const parseEpics = require('./index').parseEpics;
 
 
 describe('epics parsing', function() {
@@ -429,7 +430,6 @@ describe('epics parsing', function() {
 				expect(parseDevice(unparsedDevice)).to.deep.equal(parsedDevice);
 			});
 		});
-
 
 	});
 
