@@ -23,19 +23,24 @@ const isDate = require('./parseObjectsList').isDate;
 const isArray = require('./parseObjectsList').isArray;
 const isIdObject = require('./parseObjectsList').isIdObject;
 const isTimeOf = require('./parseObjectsList').isTimeOf;
+const isProtocolSupported = require('./parseObjectsList').isProtocolSupported;
+const isProtocolEnded = require('./parseObjectsList').isProtocolEnded;
+const isDeviceList = require('./parseObjectsList').isDeviceList;
+const isDeviceListEnded = require('./parseObjectsList').isDeviceListEnded;
+const isDeviceAddressBinding = require('./parseObjectsList').isDeviceAddressBinding;
 const parseToPrimitive = require('./parseObjectsList').parseToPrimitive;
 const parseToDate = require('./parseObjectsList').parseToDate;
 const parseToArray = require('./parseObjectsList').parseToArray;
 const parseToIdObject = require('./parseObjectsList').parseToIdObject;
 const parseTimeOf = require('./parseObjectsList').parseTimeOf;
 const parseValue = require('./parseObjectsList').parseValue;
+const parseDeviceValue = require('./parseObjectsList').parseDeviceValue;
+const parseSupportedLine = require('./parseObjectsList').parseSupportedLine;
+const parseSupported = require('./parseObjectsList').parseSupported;
+const parseDeviceList = require('./parseObjectsList').parseDeviceList;
+const parseDeviceAddressBinding = require('./parseObjectsList').parseDeviceAddressBinding;
 const parseController = require('./parseObjectsList').parseController;
-
-const isProtocolSupported = require('./parseDevice').isProtocolSupported;
-const isProtocolEnded = require('./parseDevice').isProtocolEnded;
-const isDeviceList = require('./parseDevice').isDeviceList;
-const isDeviceListEnded = require('./parseDevice').isDeviceListEnded;
-const isDeviceAddressBinding = require('./parseDevice').isDeviceAddressBinding;
+const parseDevice = require('./parseObjectsList').parseDevice;
 
 
 describe('epics parsing', function() {
@@ -182,6 +187,43 @@ describe('epics parsing', function() {
 			});
 		});
 
+		describe('function isProtocolSupported', function() {
+			it('identifies specified string pattern', function() {
+				expect(isProtocolSupported('protocol-lalala-supported')).to.be.true;
+				expect(isProtocolSupported('protocol--supported')).to.be.false;
+			});
+		});
+
+		describe('function isProtocolEnded', function() {
+			it('identifies specified string pattern', function() {
+				expect(isProtocolEnded('        )')).to.be.true;
+				expect(isProtocolEnded('       )')).to.be.false;
+				expect(isProtocolEnded('         )')).to.be.false;
+			});
+		});
+
+		describe('function isDeviceList', function() {
+			it('identifies specified string pattern', function() {
+				expect(isDeviceList('object-list')).to.be.true;
+				expect(isDeviceList('object-lisst')).to.be.false;
+			});
+		});
+
+		describe('function isDeviceListEnded', function() {
+			it('identifies specified string pattern', function() {
+				expect(isDeviceListEnded('}')).to.be.true;
+				expect(isDeviceListEnded('nope')).to.be.false;
+			});
+		});
+
+		describe('function isDeviceAddressBinding', function() {
+			it('identifies specified string pattern', function() {
+				expect(isDeviceAddressBinding('{ lalala }')).to.be.true;
+				expect(isDeviceAddressBinding(' { lalala }')).to.be.false;
+				expect(isDeviceAddressBinding('{ lalala } ')).to.be.false;
+			});
+		});
+
 		describe('function parseToPrimitive', function() {
 			it('returns primitive version of what a wants to be', function() {
 				expect(parseToPrimitive('TRUE')).to.be.true;
@@ -221,8 +263,9 @@ describe('epics parsing', function() {
 			});
 		});
 
+		// relies on isDate, isArray, and isIDObject
 		describe('function parseValue', function() {
-			it('parses string to object', function() {
+			it('chooses correct parsing function', function() {
 				const test1 = 'pl"ain t"ext';
 				const test2 = '{ isArray true';
 				const test3 = '( isIdObject true';
@@ -245,8 +288,38 @@ describe('epics parsing', function() {
 			});
 		});
 
+		// relies on isProtocolSupported, isDeviceList, isDeviceAddressBinding, isTimeOf
+		describe('parseDeviceValue', function() {
+			it('chooses correct parsing function based on key and calls it on value', function() {
+				var data;
+				const parseFuncs = {
+					parseSupported: (val) => { data = ['parseSupported', val] },
+					parseDeviceList: (val) => { data = ['parseDeviceList', val] },
+					parseDeviceAddressBinding: (val) => { data = ['parseDeviceAddressBinding', val] },
+					parseTimeOf: (val) => { data = ['parseTimeOf', val] },
+					parseValue: (val) => { data = ['parseValue', val] }
+				};
+
+				parseDeviceValue('protocol-(.+)-supported', 'val', parseFuncs);
+				expect(data).to.deep.equal(['parseSupported', 'val']);
+
+				parseDeviceValue('object-list', 'val', parseFuncs);
+				expect(data).to.deep.equal(['parseDeviceList', 'val']);
+
+				parseDeviceValue('', '{ lalala }', parseFuncs);
+				expect(data).to.deep.equal(['parseDeviceAddressBinding', '{ lalala }']);
+
+				parseDeviceValue('time-of-(.+)-reset', 'val', parseFuncs);
+				expect(data).to.deep.equal(['parseTimeOf', 'val']);
+
+				parseDeviceValue('lalala', 'val', parseFuncs);
+				expect(data).to.deep.equal(['parseValue', 'val']);
+			});
+		});
+
+		// relies on isTimeOf
 		describe('parseController', function() {
-			it('works', function() {
+			it('parses text array into controller object', function() {
 				const parseFuncs = {
 					parseTimeOf: () => 'parseTimeOf',
 					parseValue: () => 'parseValue'
@@ -264,53 +337,103 @@ describe('epics parsing', function() {
 			});
 		});
 
-		describe('parsing device', function() {
+		describe('parseSupportedLine', function() {
+			it('correctly parses a line of "protocol supported" section', function() {
+				const in1 = '';
+				const out1 = [];
 
-			describe('function isProtocolSupported', function() {
-				it('identifies specified string pattern', function() {
-					expect(isProtocolSupported('protocol-lalala-supported')).to.be.true;
-					expect(isProtocolSupported('protocol--supported')).to.be.false;
-				});
+				const in2 = '        F    -- ,'
+				const out2 = [ { raw: 'F', key: '', value: false } ];
+
+				const in3 = '        T,F,F,F,   --  trend-log,,,,';
+				const out3 = [ { raw: 'T', key: 'trend-log', value: true },
+				  { raw: 'F', key: '', value: false },
+				  { raw: 'F', key: '', value: false },
+				  { raw: 'F', key: '', value: false } ];
+
+				const in4 = '        T,T,F,T,   --  program, schedule,, multi-state-value,';
+				const out4 =  [ { raw: 'T', key: 'program', value: true },
+				  { raw: 'T', key: 'schedule', value: true },
+				  { raw: 'F', key: '', value: false },
+				  { raw: 'T', key: 'multi-state-value', value: true } ];
+
+				expect(parseSupportedLine(in1)).to.deep.equal(out1);
+				expect(parseSupportedLine(in2)).to.deep.equal(out2);
+				expect(parseSupportedLine(in3)).to.deep.equal(out3);
+				expect(parseSupportedLine(in4)).to.deep.equal(out4);
 			});
-
-			describe('function isProtocolEnded', function() {
-				it('identifies specified string pattern', function() {
-					expect(isProtocolEnded('        )')).to.be.true;
-					expect(isProtocolEnded('       )')).to.be.false;
-					expect(isProtocolEnded('         )')).to.be.false;
-				});
-			});
-
-			describe('function isDeviceList', function() {
-				it('identifies specified string pattern', function() {
-					expect(isDeviceList('object-list')).to.be.true;
-					expect(isDeviceList('object-lisst')).to.be.false;
-				});
-			});
-
-			describe('function isDeviceListEnded', function() {
-				it('identifies specified string pattern', function() {
-					expect(isDeviceListEnded('}')).to.be.true;
-					expect(isDeviceListEnded('nope')).to.be.false;
-				});
-			});
-
-			describe('function isDeviceAddressBinding', function() {
-				it('identifies specified string pattern', function() {
-					expect(isDeviceAddressBinding('{ lalala }')).to.be.true;
-					expect(isDeviceAddressBinding(' { lalala }')).to.be.false;
-					expect(isDeviceAddressBinding('{ lalala } ')).to.be.false;
-				});
-			});
-
-
-
-
 		});
+		
+		describe('function parseSupported', function() {
+			it('parses supported protocols section', function() {
+				const parseFuncs = {
+					parseSupportedLine: (text) => [text, text]
+				};
+
+				const in2 = ['la', 'lala', 'lalala'];
+				const out2 = [ 'la', 'la', 'lala', 'lala', 'lalala', 'lalala' ];
+
+				expect(parseSupported([], parseFuncs)).to.deep.equal([]);
+				expect(parseSupported(in2, parseFuncs)).to.deep.equal(out2);
+			});
+		});
+
+		describe('function parseDeviceList', function() {
+			it('parses device list into array of objects', function() {
+				const parseFuncs = {
+					parseToIdObject: (text) => { return {key: text}; }
+				};
+				const in1 = ['    (hi), (hi), (hi), (hi)',
+					'    (hi), (hi), (hi), (hi)',
+					'    (hi), (hi), (hi), (hi)' ];
+				const out1 = [{key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, {key: '(hi)'}, ];
+				expect(parseDeviceList(in1, parseFuncs)).to.deep.equal(out1);
+			});
+		});
+
+		describe('function parseDeviceAddressBinding', function() {
+			it('parses the address bindings into an array of objects', function() {
+				const parseFuncs = {
+					parseToIdObject: (text) => text + 'parseToIdObject',
+					parseToPrimitive: (text) => text + 'parseToPrimitive'
+				};
+				const in1 = '{ (device, 4138819),1,C0A802D1BAC0,(device, 4098468),1,C0A802C8BAC0,(device, 4030322),2765,25,(device, 4006295),2766,32 }';
+				const out1 = parseDeviceAddressBinding(in1, parseFuncs);
+
+				expect(out1).to.be.a('array');
+				expect(out1.length).to.equal(4);
+
+				expect(out1[0].controller).to.equal('(device, 4138819)parseToIdObject');
+				expect(out1[0].value).to.equal('1parseToPrimitive');
+				expect(out1[0].address).to.equal('C0A802D1BAC0');
+
+				expect(out1[1].controller).to.equal('(device, 4098468)parseToIdObject');
+				expect(out1[1].value).to.equal('1parseToPrimitive');
+				expect(out1[1].address).to.equal('C0A802C8BAC0');
+
+				expect(out1[2].controller).to.equal('(device, 4030322)parseToIdObject');
+				expect(out1[2].value).to.equal('2765parseToPrimitive');
+				expect(out1[2].address).to.equal('25');
+
+				expect(out1[3].controller).to.equal('(device, 4006295)parseToIdObject');
+				expect(out1[3].value).to.equal('2766parseToPrimitive');
+				expect(out1[3].address).to.equal('32');
+			});
+		});
+
+		// This is a driver function: it depends on many of the functions tested above
+		describe('function parseDevice', function() {
+			it('parses device section of epics output', function() {
+				const unparsedDevice = require('./unparsedDevice');
+				const parsedDevice = require('./parsedDevice');
+				expect(parseDevice(unparsedDevice)).to.deep.equal(parsedDevice);
+			});
+		});
+
+
 	});
 
 });
-
 
 
 

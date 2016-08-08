@@ -1,7 +1,7 @@
 'use strict';
+
 const moment = require('moment');
 const KEYS = require('./constants').OBJECTS_LIST;
-const parseDevice = require('./parseDevice').parseDevice;
 
 const parseFuncs = {
   parseToPrimitive,
@@ -9,10 +9,14 @@ const parseFuncs = {
   parseToArray,
   parseTimeOf,
   parseToIdObject,
-  parseValue
+  parseValue,
+  parseSupportedLine,
+  parseSupported,
+  parseDeviceList,
+  parseDeviceAddressBinding
 };
 
-
+// Indicators
 function genericStart(text){
   return /^  {/.test(text);
 }
@@ -31,6 +35,26 @@ function isArray(text){
 
 function isIdObject(text){
   return /\(|\)/.test(text);
+}
+
+function isProtocolSupported(text) {
+  return /protocol-(.+)-supported/.test(text);
+}
+
+function isProtocolEnded(text) {
+  return /^        \)/.test(text);
+}
+
+function isDeviceList(text) {
+  return text.indexOf('object-list') > -1;
+}
+
+function isDeviceListEnded(text) {
+  return /}/.test(text);
+}
+
+function isDeviceAddressBinding(text) {
+  return /^\{ (.+) \}$/.test(text);
 }
 
 function isTimeOf(text) {
@@ -65,13 +89,6 @@ function parseToArray(text, parseFuncs){
     .map(text => parseFuncs.parseToPrimitive(text.trim()));
 }
 
-function parseTimeOf(text, parseFuncs){
-  	const elements = text.match(/\((.+),(.+)\)/);
-    const string = elements[1];
-    const number = parseFuncs.parseToPrimitive(elements[2]);
-    return [ string , number ];
-}
-
 function parseToIdObject(text){
   const elements = text.match(/\((.+), (.+)\)/);
   const error = text.match(/(BACnet Error:.+)/);
@@ -80,6 +97,26 @@ function parseToIdObject(text){
   const type = elements[1];
   const id = elements[2];
   return { id, type };
+}
+
+function parseTimeOf(text, parseFuncs){
+    const elements = text.match(/\((.+),(.+)\)/);
+    const string = elements[1];
+    const number = parseFuncs.parseToPrimitive(elements[2]);
+    return [ string , number ];
+}
+
+function parseSupported(textArr, parseFuncs) {
+  return textArr.map(line => parseFuncs.parseSupportedLine(line))
+    .reduce((aggregate, objArr) => aggregate.concat(objArr), []);
+}
+
+function parseDeviceList(textArr, parseFuncs) {
+  return textArr.map(line => {
+    const elements = line.match(/(\([^\)]+\))/g);
+    return elements.map(element => parseFuncs.parseToIdObject(element));
+  })
+  .reduce((aggregate, objectArr) => aggregate.concat(objectArr), []);
 }
 
 //directs to the correct parsers
@@ -91,6 +128,13 @@ function parseValue(text, parseFuncs){
   else return parseFuncs.parseToPrimitive(text);
 }
 
+function parseDeviceValue(key, value, parseFuncs){
+  if(isProtocolSupported(key)) return parseFuncs.parseSupported(value, parseFuncs);
+  else if(isDeviceList(key)) return parseFuncs.parseDeviceList(value, parseFuncs);
+  else if(isDeviceAddressBinding(value)) return parseFuncs.parseDeviceAddressBinding(value, parseFuncs);
+  else if(isTimeOf(key)) return parseFuncs.parseTimeOf(value);
+  else return parseFuncs.parseValue(value, parseFuncs);
+}
 
 function parseController(textArr, parseFuncs) {
 	return textArr.reduce((accum, line, i) => {
@@ -135,6 +179,96 @@ function sectionify(textArr){
     };
 }
 
+function parseDeviceAddressBinding(text, parseFuncs){
+  const search = text.match(/(\([^\)]+\),[\d]+,[^,]+)/g);
+  if(!search) return;
+
+  return search.map(result => {
+    const elements = result.match(/(\([^\)]+\)),([\d]+),([^\s}]+)/);
+    const controller = parseFuncs.parseToIdObject(elements[1]);
+    const value = parseFuncs.parseToPrimitive(elements[2]);
+    const address = elements[3];
+
+    return {
+      controller,
+      value,
+      address
+    };
+  });
+}
+
+function parseSupportedLine(text){
+  const search = text.match(/        (.+)   --(.+),$/);
+  if (!search) return [];
+  const values = search[1].split(',');
+  const keys = search[2].split(',');
+
+  return keys.reduce((accum, key, index) => {
+    //format text to boolean
+    const raw = values[index].trim(),
+      protocol = {
+        raw,
+        key: key.trim(),
+        value : raw.toLowerCase() === 't' ? true : raw.toLowerCase() === 'f' ? false : undefined
+      };
+    accum.push(protocol);
+    return accum;
+  }, []);
+}
+
+
+//parse chunks
+function parseDevice(textArr) {
+
+  let sections = [];
+  let temp = [];
+  let currentSection = [];
+  let hasStarted = false;
+
+  function initialize(key){
+    currentSection.push(key);
+    hasStarted = true;
+  }
+
+  function reset(){
+    currentSection.push(temp);
+    sections.push(currentSection);
+    temp = [];
+    currentSection = [];
+    hasStarted = false;
+  }
+
+  textArr.forEach(line => {
+    if(hasStarted) {
+      //if reach end of protocol supported section
+      if(isProtocolEnded(line)) return reset();
+      //push line
+      temp.push(line);
+
+      //if this is the end of the device list section
+      if(isDeviceListEnded(line)) return reset();
+    }
+    else {
+      const property = line.match(/(\S+): (.+)/);
+      if(!property) return;
+      const key = property[1];
+      const value = property[2];
+      //checks to see if it is a multi-line section property
+      if(isProtocolSupported(key)) initialize(key);
+      else if(isDeviceList(key)) initialize(key);
+      else if(value) sections.push([key, value]);
+    }
+  });
+
+  return sections.map(section => {
+    const key = section[0];
+    const raw = section[1];
+    const value = parseDeviceValue(key, raw, parseFuncs);
+    return { [key] : value };
+  })
+  .reduce((accum, property) => Object.assign(accum, property), {});
+}
+
 function parseObjectsList(textArr) {
 	var sections = sectionify(textArr);
 
@@ -152,7 +286,7 @@ function parseObjectsList(textArr) {
 		throw e;
 	}
 
-	// console.log('contr', sections[KEYS.CONTROLLERS]);
+	// console.log('contr', sections[KEYS.DEVICE]);
 }
 
 
@@ -165,12 +299,26 @@ module.exports = {
 	isDate,
 	isIdObject,
   isTimeOf,
+  isProtocolSupported,
+  isProtocolEnded,
+  isDeviceList,
+  isDeviceListEnded,
+  isDeviceAddressBinding,
+  parseDevice,
 	parseToPrimitive,
 	parseToDate,
 	parseToArray,
 	parseTimeOf,
 	parseToIdObject,
 	parseValue,
+  parseDeviceValue,
+  parseSupportedLine,
+  parseSupported,
+  parseDeviceList,
+  parseDeviceAddressBinding,
 	parseController
 };
+
+
+
 
