@@ -22,6 +22,7 @@ const genericEndList = require('./parseObjectsList').genericEnd;
 const isDate = require('./parseObjectsList').isDate;
 const isArray = require('./parseObjectsList').isArray;
 const isIdObject = require('./parseObjectsList').isIdObject;
+const isTimeOf = require('./parseObjectsList').isTimeOf;
 const parseToPrimitive = require('./parseObjectsList').parseToPrimitive;
 const parseToDate = require('./parseObjectsList').parseToDate;
 const parseToArray = require('./parseObjectsList').parseToArray;
@@ -29,6 +30,13 @@ const parseToIdObject = require('./parseObjectsList').parseToIdObject;
 const parseTimeOf = require('./parseObjectsList').parseTimeOf;
 const parseValue = require('./parseObjectsList').parseValue;
 const parseController = require('./parseObjectsList').parseController;
+
+const isProtocolSupported = require('./parseDevice').isProtocolSupported;
+const isProtocolEnded = require('./parseDevice').isProtocolEnded;
+const isDeviceList = require('./parseDevice').isDeviceList;
+const isDeviceListEnded = require('./parseDevice').isDeviceListEnded;
+const isDeviceAddressBinding = require('./parseDevice').isDeviceAddressBinding;
+
 
 describe('epics parsing', function() {
 	describe('function divideIntoSections', function() {
@@ -167,6 +175,13 @@ describe('epics parsing', function() {
 			});
 		});
 
+		describe('function isTimeOf', function() {
+			it('identified specified string pattern', function() {
+				expect(isTimeOf('time-of-lalala-reset')).to.be.true;
+				expect(isTimeOf('time-of--reset')).to.be.false;
+			});
+		});
+
 		describe('function parseToPrimitive', function() {
 			it('returns primitive version of what a wants to be', function() {
 				expect(parseToPrimitive('TRUE')).to.be.true;
@@ -251,9 +266,40 @@ describe('epics parsing', function() {
 
 		describe('parsing device', function() {
 
-			describe('function something', function() {
-				it('does stuff', function() {
+			describe('function isProtocolSupported', function() {
+				it('identifies specified string pattern', function() {
+					expect(isProtocolSupported('protocol-lalala-supported')).to.be.true;
+					expect(isProtocolSupported('protocol--supported')).to.be.false;
+				});
+			});
 
+			describe('function isProtocolEnded', function() {
+				it('identifies specified string pattern', function() {
+					expect(isProtocolEnded('        )')).to.be.true;
+					expect(isProtocolEnded('       )')).to.be.false;
+					expect(isProtocolEnded('         )')).to.be.false;
+				});
+			});
+
+			describe('function isDeviceList', function() {
+				it('identifies specified string pattern', function() {
+					expect(isDeviceList('object-list')).to.be.true;
+					expect(isDeviceList('object-lisst')).to.be.false;
+				});
+			});
+
+			describe('function isDeviceListEnded', function() {
+				it('identifies specified string pattern', function() {
+					expect(isDeviceListEnded('}')).to.be.true;
+					expect(isDeviceListEnded('nope')).to.be.false;
+				});
+			});
+
+			describe('function isDeviceAddressBinding', function() {
+				it('identifies specified string pattern', function() {
+					expect(isDeviceAddressBinding('{ lalala }')).to.be.true;
+					expect(isDeviceAddressBinding(' { lalala }')).to.be.false;
+					expect(isDeviceAddressBinding('{ lalala } ')).to.be.false;
 				});
 			});
 

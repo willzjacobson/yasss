@@ -33,6 +33,10 @@ function isIdObject(text){
   return /\(|\)/.test(text);
 }
 
+function isTimeOf(text) {
+  return /^time-of-(.+)-reset/.test(text);
+}
+
 //parse individual
 function parseToPrimitive(text){
   const formattedText = text.toLowerCase();
@@ -96,7 +100,7 @@ function parseController(textArr, parseFuncs) {
 	    const raw = keyVal[2];
 	    var value;
 
-	    if(/^time-of-(.+)-reset/.test(raw)) value = parseFuncs.parseTimeOf(raw, parseFuncs);
+      if (isTimeOf(raw)) value = parseFuncs.parseTimeOf(raw, parseFuncs);
 	    else value = parseFuncs.parseValue(raw, parseFuncs);
 	    accum[key] = value;
 	    return accum;
@@ -160,6 +164,7 @@ module.exports = {
 	isArray,
 	isDate,
 	isIdObject,
+  isTimeOf,
 	parseToPrimitive,
 	parseToDate,
 	parseToArray,
