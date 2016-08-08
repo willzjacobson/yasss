@@ -110,15 +110,15 @@ function divideToSections(textArr){
 
 // DRIVER
 function parseEpics(text){
-    if (text.slice(0,4) !== 'PICS') return { error: text.replace(/\rError:|ERROR/, '') };
+  if (text.slice(0,4) !== 'PICS') return { error: text.replace(/\rError:|ERROR/, '') };
 
-    var sectionMap = divideToSections(text.split('\n'));
+  var sectionMap = divideToSections(text.split('\n'));
 
     // parse each section with correct parsing function
 	for (var key in sectionMap) {
 		const value = sectionMap[key];
-	    const parser = nameToParser[key];
-	    sectionMap[key] = parser(value);
+	  const parser = nameToParser[key];
+	  sectionMap[key] = parser(value);
 	}
 
 	return sectionMap;

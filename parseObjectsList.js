@@ -1,6 +1,17 @@
 'use strict';
 const moment = require('moment');
 const KEYS = require('./constants').OBJECTS_LIST;
+const parseDevice = require('./parseDevice').parseDevice;
+
+const parseFuncs = {
+  parseToPrimitive,
+  parseToDate,
+  parseToArray,
+  parseTimeOf,
+  parseToIdObject,
+  parseValue
+};
+
 
 function genericStart(text){
   return /^  {/.test(text);
@@ -44,16 +55,16 @@ function parseToDate(text) {
   return momentObject.toDate();
 }
 
-function parseToArray(text){
+function parseToArray(text, parseFuncs){
   const formattedText = text.replace(/{|}/g, '');
   return formattedText.split(',')
-    .map(text => parseToPrimitive(text.trim()));
+    .map(text => parseFuncs.parseToPrimitive(text.trim()));
 }
 
-function parseTimeOf(text, parseToPrimitive){
+function parseTimeOf(text, parseFuncs){
   	const elements = text.match(/\((.+),(.+)\)/);
     const string = elements[1];
-    const number = parseToPrimitive(elements[2]);
+    const number = parseFuncs.parseToPrimitive(elements[2]);
     return [ string , number ];
 }
 
@@ -68,19 +79,16 @@ function parseToIdObject(text){
 }
 
 //directs to the correct parsers
-function parseValue(text){
+function parseValue(text, parseFuncs){
   if(text.indexOf('"') > -1) return text.replace(/"/g, '');
-  else if(isDate(text)) return parseToDate(text);
-  else if(isArray(text)) return parseToArray(text);
-  else if(isIdObject(text)) return parseToIdObject(text);
-  else return parseToPrimitive(text);
+  else if(isDate(text)) return parseFuncs.parseToDate(text);
+  else if(isArray(text)) return parseFuncs.parseToArray(text, parseFuncs);
+  else if(isIdObject(text)) return parseFuncs.parseToIdObject(text);
+  else return parseFuncs.parseToPrimitive(text);
 }
 
-function parseDevice() {
-	console.log('yay');
-}
 
-function parseController(textArr, parseTimeOf, parseValue, parseToPrimitive) {
+function parseController(textArr, parseFuncs) {
 	return textArr.reduce((accum, line, i) => {
 		const keyVal = line.match(/(\S+): (.+)/);
 		if(!keyVal) return accum;
@@ -88,8 +96,8 @@ function parseController(textArr, parseTimeOf, parseValue, parseToPrimitive) {
 	    const raw = keyVal[2];
 	    var value;
 
-	    if(/^time-of-(.+)-reset/.test(key)) value = parseTimeOf(raw, parseToPrimitive);
-	    else value = parseValue(raw);
+	    if(/^time-of-(.+)-reset/.test(raw)) value = parseFuncs.parseTimeOf(raw, parseFuncs);
+	    else value = parseFuncs.parseValue(raw, parseFuncs);
 	    accum[key] = value;
 	    return accum;
 	}, {});
@@ -134,7 +142,7 @@ function parseObjectsList(textArr) {
 	}
 
 	try {
-		sections[KEYS.CONTROLLERS] = sections[KEYS.CONTROLLERS].map(controller => parseController(controller, parseTimeOf, parseValue));
+		sections[KEYS.CONTROLLERS] = sections[KEYS.CONTROLLERS].map(controller => parseController(controller, parseFuncs));
 	} catch(e) {
 		console.log('Error parsing controllers:', '\n', e.stack);
 		throw e;
